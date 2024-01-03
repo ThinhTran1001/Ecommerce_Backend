@@ -16,4 +16,8 @@ public class EcommerceWebApplication {
     public String hello(){
         return "hello world";
     }
+
+    public void SSSS(){
+        int number =10;
+    }
 }
