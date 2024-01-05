@@ -1,60 +1,54 @@
 package com.example.ecommerceweb.models;
 
 import jakarta.persistence.*;
+import lombok.*;
+
+import java.sql.Timestamp;
+import java.util.Collection;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "users")
 public class Users {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "username")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="user_id")
+    private int user_id;
+
+    @Column(length=50, nullable = false)
     private String username;
-    @Column(name = "password")
+
+    @Column(length = 50, nullable = false)
     private String password;
-    @Column(name = "fullname")
-    private String fullname;
-    @Column(name = "age")
-    private Integer age;
 
-    public Users() {
-        super();
-    }
-    public Users(String username, String password, String fullname, Integer age) {
-        super();
-        this.username = username;
-        this.password = password;
-        this.fullname = fullname;
-        this.age = age;
+    @Column(length =50, nullable = false)
+    private String email;
 
-    }
-    public String getUsername() {
-        return username;
-    }
-    public void setUsername(String username) {
-        this.username = username;
-    }
-    public String getPassword() {
-        return password;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    public String getFullname() {
-        return fullname;
-    }
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
-    }
-    public Integer getAge() {
-        return age;
-    }
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-    @Override
-    public String toString() {
-        return "Users [username=" + username + ", password=" + password + ", fullname=" + fullname + ", age=" + age
-                + ", gender=" + "]";
-    }
+    @Column(name="status")
+    private boolean status;
 
+    @Column(length=100, nullable = false)
+    private String address;
+
+    @ManyToOne
+    @JoinColumn(name="role_id")
+    private Roles role_id;
+
+    @Column(name="created_at")
+    private Timestamp created_at;
+
+    @Column(name="updated_at")
+    private Timestamp updated_at;
+
+    @OneToMany(mappedBy = "created_by", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private Collection<Books> books_created;
+
+    @OneToMany(mappedBy = "updated_by", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private Collection<Books> books_updated;
 }
