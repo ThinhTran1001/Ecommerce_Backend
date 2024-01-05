@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Collection;
+
 @Entity
 @Getter
 @Setter
@@ -22,4 +24,7 @@ public class Categories {
 
     @Column(name="status")
     private boolean status;
+
+    @ManyToMany(mappedBy = "categories")
+    private Collection<Books> books;
 }
