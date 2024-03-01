@@ -12,12 +12,12 @@ import java.util.Collection;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "users")
-public class Users {
+public class Users extends Base{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="user_id")
-    private int user_id;
+    private Integer user_id;
 
     @Column(length=50, nullable = false)
     private String username;
@@ -37,12 +37,6 @@ public class Users {
     @ManyToOne
     @JoinColumn(name="role_id")
     private Roles role_id;
-
-    @Column(name="created_at")
-    private Timestamp created_at;
-
-    @Column(name="updated_at")
-    private Timestamp updated_at;
 
     @OneToMany(mappedBy = "created_by", cascade = CascadeType.ALL)
     @ToString.Exclude
