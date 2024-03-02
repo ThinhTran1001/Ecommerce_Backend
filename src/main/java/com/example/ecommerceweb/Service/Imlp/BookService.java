@@ -5,7 +5,9 @@ import com.example.ecommerceweb.Service.IBookService;
 import com.example.ecommerceweb.converter.BooksConverter;
 import com.example.ecommerceweb.models.Books;
 import com.example.ecommerceweb.repository.BookRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,12 +23,7 @@ public class BookService implements IBookService {
     @Override
     public BooksDTO save(BooksDTO newBook) {
         Books entity = new Books();
-        if(newBook.getBook_id() != null){
-            Books oldEntity = bookRepository.findById(newBook.getBook_id()).orElse(null);
-            entity = booksConverter.toEntityUpdate(newBook, oldEntity);
-        }else {
-            entity = booksConverter.toEntity(newBook);
-        }
+        entity = booksConverter.toEntity(newBook);
         bookRepository.save(entity);
         newBook = booksConverter.toDTO(entity);
         return newBook;
@@ -35,8 +32,9 @@ public class BookService implements IBookService {
     @Override
     public BooksDTO update(BooksDTO newBook) {
         Books entity = new Books();
-        Books oldEntity = bookRepository.findById(newBook.getBook_id()).orElse(null);
-        if(newBook.getBook_id() != null && oldEntity != null){
+
+        if(newBook.getBook_id() != null){
+            Books oldEntity = bookRepository.findById(newBook.getBook_id()).orElseThrow(() -> new EntityNotFoundException("Entity not found from database. "));
             entity = booksConverter.toEntityUpdate(newBook, oldEntity);
         }else {
             entity = booksConverter.toEntity(newBook);

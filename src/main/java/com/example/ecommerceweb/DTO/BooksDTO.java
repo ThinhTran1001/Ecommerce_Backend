@@ -5,7 +5,7 @@ import com.example.ecommerceweb.models.Users;
 import java.util.Collection;
 import java.util.Date;
 
-public class BooksDTO {
+public class BooksDTO extends AbstractDTO<BooksDTO>{
     private Integer book_id;
     private Collection<Categories> categories;
     private String book_name;

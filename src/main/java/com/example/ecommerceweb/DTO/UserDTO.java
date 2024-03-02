@@ -8,16 +8,16 @@ import lombok.ToString;
 import java.sql.Timestamp;
 import java.util.Collection;
 
-public class UserDTO {
+public class UserDTO extends AbstractDTO<UserDTO>{
     private Integer user_id;
+
+    private String fullName;
     private String username;
     private String password;
     private String email;
     private boolean status;
     private String address;
     private Roles role_id;
-    private Timestamp created_at;
-    private Timestamp updated_at;
     private Collection<Books> books_created;
     private Collection<Books> books_updated;
 
@@ -27,6 +27,14 @@ public class UserDTO {
 
     public void setUser_id(Integer user_id) {
         this.user_id = user_id;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getUsername() {
@@ -75,22 +83,6 @@ public class UserDTO {
 
     public void setRole_id(Roles role_id) {
         this.role_id = role_id;
-    }
-
-    public Timestamp getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(Timestamp created_at) {
-        this.created_at = created_at;
-    }
-
-    public Timestamp getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(Timestamp updated_at) {
-        this.updated_at = updated_at;
     }
 
     public Collection<Books> getBooks_created() {

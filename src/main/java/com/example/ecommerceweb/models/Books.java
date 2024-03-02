@@ -28,6 +28,12 @@ public class Books extends Base{
     @Column(length=150, nullable = false)
     private String book_name;
 
+    @Column
+    private String UrlImg;
+
+    @Column
+    private String DescriptionUrlImg;
+
     @Column(nullable = false)
     private Integer price;
 
@@ -53,13 +59,13 @@ public class Books extends Base{
     private boolean status;
 
     @ManyToOne
-    @JoinColumn(name = "book_created_by", referencedColumnName = "user_id")
+    @JoinColumn(name = "book_created_by", referencedColumnName = "user_id", nullable = true)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Users created_by;
 
     @ManyToOne
-    @JoinColumn(name = "book_updated_by", referencedColumnName = "user_id")
+    @JoinColumn(name = "book_updated_by", referencedColumnName = "user_id", nullable = true)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Users updated_by;

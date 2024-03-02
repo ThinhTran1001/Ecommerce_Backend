@@ -20,6 +20,9 @@ public class Users extends Base{
     private Integer user_id;
 
     @Column(length=50, nullable = false)
+    private String fullName;
+
+    @Column(length=50, nullable = false)
     private String username;
 
     @Column(length = 50, nullable = false)
@@ -39,10 +42,9 @@ public class Users extends Base{
     private Roles role_id;
 
     @OneToMany(mappedBy = "created_by", cascade = CascadeType.ALL)
-    @ToString.Exclude
+
     private Collection<Books> books_created;
 
     @OneToMany(mappedBy = "updated_by", cascade = CascadeType.ALL)
-    @ToString.Exclude
     private Collection<Books> books_updated;
 }

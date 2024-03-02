@@ -1,39 +1,34 @@
 package com.example.ecommerceweb.models;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.util.Date;
 
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
 public class Base {
 
-    @Column(nullable = false)
-    @CreatedDate
-    private Timestamp createdDate;
+    @Column
 
-    @Column(nullable = false)
-    @LastModifiedDate
-    private Timestamp updatedDate;
+    private Date createdDate;
 
-    public Timestamp getCreatedDate() {
+    @Column
+    private Date updatedDate;
+
+    public Date getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Timestamp createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 
-    public Timestamp getUpdatedDate() {
+    public Date getUpdatedDate() {
         return updatedDate;
     }
 
-    public void setUpdatedDate(Timestamp updatedDate) {
+    public void setUpdatedDate(Date updatedDate) {
         this.updatedDate = updatedDate;
     }
 }
