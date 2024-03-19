@@ -4,6 +4,9 @@ import com.example.ecommerceweb.DTO.BooksDTO;
 import com.example.ecommerceweb.Service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @CrossOrigin
 @RestController
 public class BooksAPI {
@@ -20,5 +23,10 @@ public class BooksAPI {
     public BooksDTO updateBook(@RequestBody BooksDTO model, @PathVariable("id") Integer id){
         model.setBook_id(id);
         return iBookService.save(model);
+    }
+
+    @GetMapping(value = "/book")
+    public List<BooksDTO> getAll(){
+        return iBookService.getAllBook();
     }
 }

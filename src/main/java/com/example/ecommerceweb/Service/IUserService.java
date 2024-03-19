@@ -11,5 +11,6 @@ public interface IUserService {
     public UserDTO UpdateUser(UserDTO newUser);
     public UserDTO DeleteUser(UserDTO newUser);
     public UserDTO FindOneUser(UserDTO newUser);
-    public List<Users> FindAllUser();
+    public List<UserDTO> FindAllUser();
+
 }

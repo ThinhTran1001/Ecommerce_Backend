@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BookService implements IBookService {
 
@@ -52,5 +54,20 @@ public class BookService implements IBookService {
             return newBook;
         }
         return null;
+    }
+
+    @Override
+    public BooksDTO delete(BooksDTO newBook) {
+        if(newBook.getBook_id() != null){
+            Books oldEntity = bookRepository.findById(newBook.getBook_id()).orElseThrow(() -> new EntityNotFoundException("Entity not found from database. "));
+            bookRepository.delete(oldEntity);
+            newBook = booksConverter.toDTO(oldEntity);
+        }
+        return newBook;
+    }
+
+    @Override
+    public List<BooksDTO> getAllBook() {
+        return booksConverter.toListDto(bookRepository.findAll());
     }
 }

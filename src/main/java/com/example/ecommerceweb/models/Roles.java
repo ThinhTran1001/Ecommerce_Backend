@@ -18,5 +18,4 @@ public class Roles {
     private Integer role_id;
     @Column(length = 20, nullable = false)
     private String role_name;
-
 }
