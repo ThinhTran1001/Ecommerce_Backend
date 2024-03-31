@@ -14,9 +14,7 @@ import java.util.Date;
 public class Base {
 
     @Column
-
     private Date createdDate;
-
     @Column
     private Date updatedDate;
 }

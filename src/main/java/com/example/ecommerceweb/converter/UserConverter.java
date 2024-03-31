@@ -18,7 +18,7 @@ public class UserConverter {
         entity.setUsername(dto.getUsername());
         entity.setPassword(dto.getPassword());
         entity.setEmail(dto.getEmail());
-        entity.setRole_id(dto.getRole_id());
+        entity.setRole(dto.getRole());
         entity.setStatus(dto.isStatus());
         entity.setAddress(dto.getAddress());
         entity.setCreatedDate(dto.getCreatedDate());
@@ -33,7 +33,7 @@ public class UserConverter {
         entity.setAvatar(dto.getAvatar());
         entity.setPassword(dto.getPassword());
         entity.setEmail(dto.getEmail());
-        entity.setRole_id(dto.getRole_id());
+        entity.setRole(dto.getRole());
         entity.setStatus(dto.isStatus());
         entity.setAddress(dto.getAddress());
         entity.setCreatedDate(dto.getCreatedDate());
@@ -51,7 +51,7 @@ public class UserConverter {
         dto.setUsername(entity.getUsername());
         dto.setPassword(entity.getPassword());
         dto.setEmail(entity.getEmail());
-        dto.setRole_id(entity.getRole_id());
+        dto.setRole(entity.getRole());
         dto.setStatus(entity.isStatus());
         dto.setAddress(entity.getAddress());
         dto.setCreatedDate(entity.getCreatedDate());

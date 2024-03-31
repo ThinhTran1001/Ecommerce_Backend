@@ -20,5 +20,4 @@ public class CategoriesDTO {
     private boolean status;
 
     private Collection<Books> books;
-
 }

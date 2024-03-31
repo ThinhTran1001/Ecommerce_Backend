@@ -4,10 +4,7 @@ import com.example.ecommerceweb.DTO.CategoriesDTO;
 import com.example.ecommerceweb.Service.ICategoriesService;
 import com.example.ecommerceweb.models.Categories;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,7 +16,12 @@ public class CategoriesAPI {
     private ICategoriesService service;
 
     @GetMapping(value = "/category")
-    public List<Categories> getAll(){
+    public List<CategoriesDTO> getAll(){
         return service.getAllCategories();
+    }
+
+    @PostMapping(value = "/category",produces = "application/json;charset=UTF-8")
+    public CategoriesDTO Add(@RequestBody CategoriesDTO model){
+        return service.Add(model);
     }
 }

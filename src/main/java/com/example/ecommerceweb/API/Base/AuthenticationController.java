@@ -5,12 +5,11 @@ import com.example.ecommerceweb.DTO.UserDTO;
 import com.example.ecommerceweb.Service.Imlp.UserService;
 import com.example.ecommerceweb.models.Users;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
+
 public class AuthenticationController {
     private final UserService userService;
 
@@ -25,7 +24,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(userService.register(request));
     }
 
-    @GetMapping("login")
+    @PostMapping("login")
     public ResponseEntity<AutheticationResponse>  login(
             @RequestBody Users request
     ){

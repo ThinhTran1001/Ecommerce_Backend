@@ -71,6 +71,12 @@ public class Books extends Base{
     @ToString.Exclude
     private Users updated_by;
 
+    @ManyToOne
+    @JoinColumn(name = "bill_id", referencedColumnName = "bill_id", nullable = true)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Bill bill_list;
+
     @Column
     private Integer length;
 
@@ -85,5 +91,8 @@ public class Books extends Base{
 
     @Column
     private Integer number_of_page;
+
+    @Column
+    private Integer discount;
 
 }

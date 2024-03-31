@@ -1,13 +1,10 @@
 package com.example.ecommerceweb.DTO;
 
 import com.example.ecommerceweb.models.Books;
-import com.example.ecommerceweb.models.Roles;
-import jakarta.persistence.*;
+import com.example.ecommerceweb.models.Role;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
-import java.sql.Timestamp;
 import java.util.Collection;
 
 @Getter
@@ -21,9 +18,7 @@ public class UserDTO extends AbstractDTO<UserDTO>{
     private String email;
     private boolean status;
     private String address;
-    private Roles role_id;
+    private Role role;
     private Collection<Books> books_created;
     private Collection<Books> books_updated;
-
-
 }

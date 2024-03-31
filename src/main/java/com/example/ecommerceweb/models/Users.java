@@ -6,7 +6,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class Users extends Base implements UserDetails {
     @Column(length=50, nullable = false)
     private String username;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 300, nullable = false)
     private String password;
 
     @Column(length =50, nullable = false)
@@ -44,20 +43,22 @@ public class Users extends Base implements UserDetails {
     @Column(length=100, nullable = false)
     private String address;
 
-    @ManyToOne
-    @JoinColumn(name="role_id")
-    private Roles role_id;
+    @Column(name = "role")
+    private Role role;
 
     @OneToMany(mappedBy = "created_by", cascade = CascadeType.ALL)
-
     private Collection<Books> books_created;
 
     @OneToMany(mappedBy = "updated_by", cascade = CascadeType.ALL)
     private Collection<Books> books_updated;
 
+    @OneToMany(mappedBy = "user_create", cascade = CascadeType.ALL)
+    private Collection<Bill> bill_list;
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role_id.getRole_name()));
+        return List.of(new SimpleGrantedAuthority(role.toString()));
     }
 
     @Override
