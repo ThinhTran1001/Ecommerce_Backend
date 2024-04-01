@@ -6,6 +6,7 @@ import lombok.*;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -13,10 +14,10 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "books")
-public class Books {
+public class Books extends Base{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int book_id;
+    private Integer book_id;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @ToString.Exclude
@@ -28,16 +29,22 @@ public class Books {
     @Column(length=150, nullable = false)
     private String book_name;
 
-    @Column(nullable = false)
-    private int price;
+    @Column
+    private String avatarImg;
 
-    @Column(nullable = false, length = 254)
+    @Column
+    private List<String> DescriptionUrlImg;
+
+    @Column(nullable = false)
+    private Integer price;
+
+    @Column( length = 254,nullable = false)
     private String author_name;
 
-    @Column(name="description", nullable = false)
+    @Column(name="description")
     private String description;
 
-    @Column(length=10, nullable = false)
+    @Column(length=10)
     private String short_name;
 
     @Column(nullable = false)
@@ -46,42 +53,46 @@ public class Books {
     @Column(length= 20, nullable = false)
     private String publisher;
 
-    @Column(nullable = false)
-    private int quantity;
+    @Column
+    private Integer quantity;
 
-    @Column(nullable = false)
+    @Column
     private boolean status;
 
     @ManyToOne
-    @JoinColumn(name = "book_created_by", referencedColumnName = "user_id")
+    @JoinColumn(name = "book_created_by", referencedColumnName = "user_id", nullable = true)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Users created_by;
 
-    @Column(nullable = false)
-    private Timestamp created_at;
-
     @ManyToOne
-    @JoinColumn(name = "book_updated_by", referencedColumnName = "user_id")
+    @JoinColumn(name = "book_updated_by", referencedColumnName = "user_id", nullable = true)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Users updated_by;
 
-    @Column(nullable = false)
-    private Timestamp updated_at;
+    @ManyToOne
+    @JoinColumn(name = "bill_id", referencedColumnName = "bill_id", nullable = true)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Bill bill_list;
 
-    @Column(nullable = false)
-    private int length;
+    @Column
+    private Integer length;
 
-    @Column(nullable = false)
-    private int thickness;
+    @Column
+    private Integer thickness;
 
-    @Column(nullable = false)
-    private int width;
+    @Column
+    private Integer width;
 
-    @Column(nullable = false, length = 15)
+    @Column( length = 15,nullable = false)
     private String language;
 
-    @Column(nullable = false)
-    private int number_of_page;
+    @Column
+    private Integer number_of_page;
+
+    @Column
+    private Integer discount;
+
 }

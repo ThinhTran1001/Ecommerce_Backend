@@ -17,10 +17,13 @@ import java.util.Collection;
 public class Categories {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int category_id;
+    private Integer category_id;
 
     @Column(length=50, nullable = false)
     private String category_name;
+
+    @Column(length=50, nullable = false)
+    private String category_Code;
 
     @Column(name="status")
     private boolean status;

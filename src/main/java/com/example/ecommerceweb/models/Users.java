@@ -2,9 +2,12 @@ package com.example.ecommerceweb.models;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Getter
@@ -12,17 +15,23 @@ import java.util.Collection;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "users")
-public class Users {
+public class Users extends Base implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="user_id")
-    private int user_id;
+    private Integer user_id;
+
+    @Column(name="avatar")
+    private String Avatar;
+
+    @Column(length=50, nullable = false)
+    private String fullName;
 
     @Column(length=50, nullable = false)
     private String username;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 300, nullable = false)
     private String password;
 
     @Column(length =50, nullable = false)
@@ -34,21 +43,41 @@ public class Users {
     @Column(length=100, nullable = false)
     private String address;
 
-    @ManyToOne
-    @JoinColumn(name="role_id")
-    private Roles role_id;
-
-    @Column(name="created_at")
-    private Timestamp created_at;
-
-    @Column(name="updated_at")
-    private Timestamp updated_at;
+    @Column(name = "role")
+    private Role role;
 
     @OneToMany(mappedBy = "created_by", cascade = CascadeType.ALL)
-    @ToString.Exclude
     private Collection<Books> books_created;
 
     @OneToMany(mappedBy = "updated_by", cascade = CascadeType.ALL)
-    @ToString.Exclude
     private Collection<Books> books_updated;
+
+    @OneToMany(mappedBy = "user_create", cascade = CascadeType.ALL)
+    private Collection<Bill> bill_list;
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.toString()));
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
