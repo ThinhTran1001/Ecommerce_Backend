@@ -27,6 +27,14 @@ public class CategoriesConverter {
         return dto;
     }
 
+    public Categories toUpdate(Categories entity, CategoriesDTO dto){
+        entity.setCategory_Code(dto.getCategory_Code());
+        entity.setCategory_name(dto.getCategory_name());
+        entity.setStatus(dto.isStatus());
+        entity.setBooks(dto.getBooks());
+        return entity;
+    }
+
     public List<CategoriesDTO> toListDTO(List<Categories> list){
         List<CategoriesDTO> listDto = new ArrayList<>();
         for (Categories categories: list){

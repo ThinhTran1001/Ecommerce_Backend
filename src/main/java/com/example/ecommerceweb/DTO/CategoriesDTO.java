@@ -12,6 +12,7 @@ import java.util.Collection;
 public class CategoriesDTO {
 
     private Integer category_id;
+    private ImageDataDTO image;
 
     private String category_name;
 

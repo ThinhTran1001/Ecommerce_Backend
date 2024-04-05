@@ -19,6 +19,10 @@ public class Categories {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer category_id;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image",referencedColumnName = "id")
+    private ImageData image;
+
     @Column(length=50, nullable = false)
     private String category_name;
 

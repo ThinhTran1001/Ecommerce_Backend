@@ -1,6 +1,7 @@
 package com.example.ecommerceweb.DTO;
 
 import com.example.ecommerceweb.models.Books;
+import com.example.ecommerceweb.models.ImageData;
 import com.example.ecommerceweb.models.Role;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +12,7 @@ import java.util.Collection;
 @Setter
 public class UserDTO extends AbstractDTO<UserDTO>{
     private Integer user_id;
-    private String Avatar;
+    private ImageDataDTO Avatar;
     private String fullName;
     private String username;
     private String password;
