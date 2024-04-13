@@ -6,18 +6,19 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Collection;
+import java.util.List;
 
 @Getter
 @Setter
 public class CategoriesDTO {
 
-    private Integer category_id;
+    private Long categoryId;
 
-    private String category_name;
+    private String categoryName;
 
-    private String category_Code;
+    private String categoryCode;
 
     private boolean status;
 
-    private Collection<Books> books;
+    private List<Books> books;
 }

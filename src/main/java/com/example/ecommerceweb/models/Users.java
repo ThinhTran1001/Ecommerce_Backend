@@ -43,19 +43,19 @@ public class Users extends Base implements UserDetails {
     @Column(name = "role")
     private Role role;
 
-    @OneToMany(mappedBy = "created_by", cascade = CascadeType.ALL)
-    private Collection<Books> booksCreated;
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL)
+    private List<Books> booksCreated;
 
-    @OneToMany(mappedBy = "updated_by", cascade = CascadeType.ALL)
-    private Collection<Books> booksUpdated;
+    @OneToMany(mappedBy = "updatedBy", cascade = CascadeType.ALL)
+    private List<Books> booksUpdated;
 
-    @OneToMany(mappedBy = "user_create", cascade = CascadeType.ALL)
-    private Collection<Orders> orderList;
+    @OneToMany(mappedBy = "userCreate", cascade = CascadeType.ALL)
+    private List<Orders> orderList;
 
     @OneToMany(mappedBy = "usersCart")
     private List<Carts> carts;
 
-    @OneToMany(mappedBy = "userAddress")
+    @OneToMany(mappedBy = "usersAddress")
     private List<Address> addresses;
 
     // relationship that users created vouchers

@@ -12,7 +12,7 @@ public class UserConverter {
 
     public Users toEntity(UserDTO dto){
         Users entity = new Users();
-        entity.setUser_id(dto.getUser_id());
+        entity.setId(dto.getUserId());
         entity.setFullName(dto.getFullName());
         entity.setAvatar(dto.getAvatar());
         entity.setUsername(dto.getUsername());
@@ -20,11 +20,10 @@ public class UserConverter {
         entity.setEmail(dto.getEmail());
         entity.setRole(dto.getRole());
         entity.setStatus(dto.isStatus());
-        entity.setAddress(dto.getAddress());
-        entity.setCreatedDate(dto.getCreatedDate());
-        entity.setUpdatedDate(dto.getUpdatedDate());
-        entity.setBooks_created(dto.getBooks_created());
-        entity.setBooks_updated(dto.getBooks_updated());
+        entity.setCreatedAt(dto.getCreatedAt());
+        entity.setUpdatedAt(dto.getUpdatedAt());
+        entity.setBooksCreated(dto.getBooksCreated());
+        entity.setBooksUpdated(dto.getBooksUpdated());
         return entity;
     }
 
@@ -35,17 +34,16 @@ public class UserConverter {
         entity.setEmail(dto.getEmail());
         entity.setRole(dto.getRole());
         entity.setStatus(dto.isStatus());
-        entity.setAddress(dto.getAddress());
-        entity.setCreatedDate(dto.getCreatedDate());
-        entity.setUpdatedDate(dto.getUpdatedDate());
-        entity.setBooks_created(dto.getBooks_created());
-        entity.setBooks_updated(dto.getBooks_updated());
+        entity.setCreatedAt(dto.getCreatedAt());
+        entity.setUpdatedAt(dto.getUpdatedAt());
+        entity.setBooksCreated(dto.getBooksCreated());
+        entity.setBooksUpdated(dto.getBooksUpdated());
         return entity;
     }
 
     public UserDTO toDTO(Users entity){
         UserDTO dto = new UserDTO();
-        dto.setUser_id(entity.getUser_id());
+        dto.setUserId(entity.getId());
         dto.setFullName(entity.getFullName());
         dto.setAvatar(entity.getAvatar());
         dto.setUsername(entity.getUsername());
@@ -53,11 +51,10 @@ public class UserConverter {
         dto.setEmail(entity.getEmail());
         dto.setRole(entity.getRole());
         dto.setStatus(entity.isStatus());
-        dto.setAddress(entity.getAddress());
-        dto.setCreatedDate(entity.getCreatedDate());
-        dto.setUpdatedDate(entity.getUpdatedDate());
-        dto.setBooks_created(entity.getBooks_created());
-        dto.setBooks_updated(entity.getBooks_updated());
+        dto.setCreatedAt(entity.getCreatedAt());
+        dto.setUpdatedAt(entity.getUpdatedAt());
+        dto.setBooksCreated(entity.getBooksCreated());
+        dto.setBooksUpdated(entity.getBooksUpdated());
         return dto;
     }
 

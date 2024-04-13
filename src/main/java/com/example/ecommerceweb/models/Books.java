@@ -55,6 +55,9 @@ public class Books extends Base{
     @Column
     private boolean status;
 
+//    @Column
+//    private List<String> DescriptionUrlImg;
+
     @ManyToOne
     @JoinColumn(name = "book_created_by", referencedColumnName = "user_id", nullable = true)
     @EqualsAndHashCode.Exclude

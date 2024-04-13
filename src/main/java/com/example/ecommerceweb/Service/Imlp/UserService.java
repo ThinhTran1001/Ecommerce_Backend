@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -48,12 +49,12 @@ public class UserService implements IUserService{
 
         Users user = new Users();
         if (newUser != null){
-            Date currentDate = new Date();
+            Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
             user = userConverter.toEntity(newUser);
-            user.setRole(Role.USER);
+            user.setRole(Role.CUSTOMER);
             user.setStatus(true);
-            user.setCreatedDate(currentDate);
-            user.setUpdatedDate(currentDate);
+            user.setCreatedAt(currentTimestamp);
+            user.setUpdatedAt(currentTimestamp);
             userRepository.save(user);
             newUser = userConverter.toDTO(user);
             return newUser;
@@ -63,12 +64,12 @@ public class UserService implements IUserService{
 
     @Override
     public UserDTO UpdateUser(UserDTO newUser) {
-        if (newUser.getUser_id() != null){
-            Users oldUser = userRepository.findById(newUser.getUser_id()).orElseThrow(() -> new EntityNotFoundException("Entity not found from database. "));
+        if (newUser.getUserId() != null){
+            Users oldUser = userRepository.findById(newUser.getUserId()).orElseThrow(() -> new EntityNotFoundException("Entity not found from database. "));
             Users updateUser = userConverter.toUpdateEntity(newUser, oldUser);
-            Date currentDate = new Date();
-            updateUser.setCreatedDate(currentDate);
-            updateUser.setUpdatedDate(currentDate);
+            Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+            updateUser.setCreatedAt(currentTimestamp);
+            updateUser.setUpdatedAt(currentTimestamp);
             userRepository.save(updateUser);
             newUser = userConverter.toDTO(updateUser);
         }
@@ -78,8 +79,8 @@ public class UserService implements IUserService{
     @Override
     public UserDTO DeleteUser(UserDTO newUser) {
 
-        if (newUser.getUser_id() != null){
-            Users oldUser = userRepository.findById(newUser.getUser_id()).orElseThrow(() -> new EntityNotFoundException("Entity not found from database. "));
+        if (newUser.getUserId() != null){
+            Users oldUser = userRepository.findById(newUser.getUserId()).orElseThrow(() -> new EntityNotFoundException("Entity not found from database. "));
             userRepository.delete(oldUser);
             newUser = userConverter.toDTO(oldUser);
         }else {
@@ -90,8 +91,8 @@ public class UserService implements IUserService{
 
     @Override
     public UserDTO FindOneUser(UserDTO newUser) {
-        if (newUser.getUser_id() != null){
-            Users oldUser = userRepository.findById(newUser.getUser_id()).orElseThrow(() -> new EntityNotFoundException("Entity not found from database. "));
+        if (newUser.getUserId() != null){
+            Users oldUser = userRepository.findById(newUser.getUserId()).orElseThrow(() -> new EntityNotFoundException("Entity not found from database. "));
             newUser = userConverter.toDTO(oldUser);
             return newUser;
         }else {
@@ -107,12 +108,12 @@ public class UserService implements IUserService{
 
 
     public AutheticationResponse register(Users user){
-        Date currentDate = new Date();
-        user.setRole(Role.USER);
+        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+        user.setRole(Role.CUSTOMER);
         user.setStatus(true);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setCreatedDate(currentDate);
-        user.setUpdatedDate(currentDate);
+        user.setCreatedAt(currentTimestamp);
+        user.setUpdatedAt(currentTimestamp);
         userRepository.save(user);
         String token = jwtService.generateToken(user);
         return new AutheticationResponse(token);

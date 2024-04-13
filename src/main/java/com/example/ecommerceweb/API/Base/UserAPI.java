@@ -21,8 +21,8 @@ public class UserAPI {
     }
 
     @PutMapping(value = "/user/{id}")
-    public UserDTO updateUser(@RequestBody UserDTO model, @PathVariable("id") Integer id){
-        model.setUser_id(id);
+    public UserDTO updateUser(@RequestBody UserDTO model, @PathVariable("id") Long id){
+        model.setUserId(id);
         return userService.UpdateUser(model);
     }
 
@@ -32,13 +32,13 @@ public class UserAPI {
     }
 
     @GetMapping(value = "/user/{id}")
-    public UserDTO getOneUser(@RequestBody UserDTO model,@PathVariable("id") Integer id){
-        model.setUser_id(id);
+    public UserDTO getOneUser(@RequestBody UserDTO model,@PathVariable("id") Long id){
+        model.setUserId(id);
         return userService.FindOneUser(model);
     }
     @DeleteMapping(value = "/user/{id}")
-    public UserDTO deleteUser(@RequestBody UserDTO model,@PathVariable("id") Integer id){
-        model.setUser_id(id);
+    public UserDTO deleteUser(@RequestBody UserDTO model,@PathVariable("id") Long id){
+        model.setUserId(id);
         return userService.DeleteUser(model);
     }
 
