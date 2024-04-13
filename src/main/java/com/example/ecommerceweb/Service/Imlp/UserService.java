@@ -4,21 +4,28 @@ import com.example.ecommerceweb.DTO.AutheticationResponse;
 import com.example.ecommerceweb.DTO.UserDTO;
 import com.example.ecommerceweb.Service.IUserService;
 import com.example.ecommerceweb.Service.JwtService;
+import com.example.ecommerceweb.Service.StorageService;
 import com.example.ecommerceweb.converter.UserConverter;
+import com.example.ecommerceweb.models.ImageData;
 import com.example.ecommerceweb.models.Role;
 import com.example.ecommerceweb.models.Users;
+import com.example.ecommerceweb.repository.ImageRepository;
 import com.example.ecommerceweb.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.lang.reflect.Type;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService implements IUserService{
@@ -29,6 +36,9 @@ public class UserService implements IUserService{
     @Autowired
     private final UserConverter userConverter;
 
+    @Autowired
+    private  final ImageRepository imageRepository;
+
     private final PasswordEncoder passwordEncoder;
 
     private final JwtService jwtService;
@@ -36,22 +46,39 @@ public class UserService implements IUserService{
     private final AuthenticationManager authenticationManager;
 
 
-    public UserService(UserRepository userRepository,  UserConverter userConverter, PasswordEncoder passwordEncoder, JwtService jwtService, AuthenticationManager authenticationManager) {
+    public UserService(UserRepository userRepository,  UserConverter userConverter, PasswordEncoder passwordEncoder, JwtService jwtService, AuthenticationManager authenticationManager, ImageRepository imageRepository) {
         this.userRepository = userRepository;
         this.userConverter = userConverter;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
+        this.imageRepository = imageRepository;
     }
 
     @Override
     public UserDTO AddUser(UserDTO newUser) {
+        ImageData avatarDefault = imageRepository.findByName("avatar-default-user.png").orElseThrow(() -> new EntityNotFoundException("Khong co anh dai dien"));
+        Users user ;
+        ImageData avatar;
 
-        Users user = new Users();
         if (newUser != null){
             Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
             user = userConverter.toEntity(newUser);
-            user.setRole(Role.CUSTOMER);
+            if (user.getAvatar() != null){
+                System.out.println(user.getAvatar().getId());
+            }else {
+                System.out.println("khong hieu noi");
+            }
+            user.setAvatar(avatarDefault);
+
+
+            if (newUser.getAvatar() != null){
+                avatar = imageRepository.findById(newUser.getAvatar().getId()).orElse(null);
+                if (avatar != null){
+                    user.setAvatar(avatar);
+                }
+            }
+            user.setRole(Role.USER);
             user.setStatus(true);
             user.setCreatedAt(currentTimestamp);
             user.setUpdatedAt(currentTimestamp);
@@ -105,6 +132,7 @@ public class UserService implements IUserService{
     public List<UserDTO> FindAllUser() {
         return userConverter.toListDTO(userRepository.findAll());
     }
+
 
 
     public AutheticationResponse register(Users user){

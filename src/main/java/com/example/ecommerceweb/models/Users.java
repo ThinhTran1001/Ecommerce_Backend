@@ -14,6 +14,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table(name = "users")
 public class Users extends Base implements UserDetails {
 
@@ -22,8 +23,10 @@ public class Users extends Base implements UserDetails {
     @Column(name="user_id")
     private Long id;
 
-    @Column(name="avatar")
-    private String avatar;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "avatar",referencedColumnName = "id")
+    private ImageData Avatar;
+
 
     @Column(length=50, nullable = false)
     private String fullName;

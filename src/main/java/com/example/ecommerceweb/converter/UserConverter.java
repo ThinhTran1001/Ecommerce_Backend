@@ -1,7 +1,9 @@
 package com.example.ecommerceweb.converter;
 
+import com.example.ecommerceweb.DTO.ImageDataDTO;
 import com.example.ecommerceweb.DTO.UserDTO;
 import com.example.ecommerceweb.models.Users;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -10,11 +12,15 @@ import java.util.List;
 @Component
 public class UserConverter {
 
+    @Autowired
+    private ImageDataConverter imageDataConverter;
+
     public Users toEntity(UserDTO dto){
         Users entity = new Users();
         entity.setId(dto.getUserId());
         entity.setFullName(dto.getFullName());
-        entity.setAvatar(dto.getAvatar());
+        entity.setAvatar(imageDataConverter.toEntity(dto.getAvatar()));
+//        entity.setAvatar(dto.getAvatar());
         entity.setUsername(dto.getUsername());
         entity.setPassword(dto.getPassword());
         entity.setEmail(dto.getEmail());
@@ -29,7 +35,8 @@ public class UserConverter {
 
     public Users toUpdateEntity(UserDTO dto,Users entity){
         entity.setFullName(dto.getFullName());
-        entity.setAvatar(dto.getAvatar());
+        entity.setAvatar(imageDataConverter.toEntity(dto.getAvatar()));
+//        entity.setAvatar(dto.getAvatar());
         entity.setPassword(dto.getPassword());
         entity.setEmail(dto.getEmail());
         entity.setRole(dto.getRole());
@@ -45,7 +52,8 @@ public class UserConverter {
         UserDTO dto = new UserDTO();
         dto.setUserId(entity.getId());
         dto.setFullName(entity.getFullName());
-        dto.setAvatar(entity.getAvatar());
+        dto.setAvatar(imageDataConverter.toDTO(entity.getAvatar()));
+//        dto.setAvatar(entity.getAvatar());
         dto.setUsername(entity.getUsername());
         dto.setPassword(entity.getPassword());
         dto.setEmail(entity.getEmail());

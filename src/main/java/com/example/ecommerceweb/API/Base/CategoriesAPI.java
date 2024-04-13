@@ -11,17 +11,31 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
+@RequestMapping("/category")
 public class CategoriesAPI {
     @Autowired
     private ICategoriesService service;
 
-    @GetMapping(value = "/category")
+    @GetMapping(value = "")
     public List<CategoriesDTO> getAll(){
         return service.getAllCategories();
     }
 
-    @PostMapping(value = "/category",produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "")
     public CategoriesDTO Add(@RequestBody CategoriesDTO model){
         return service.Add(model);
     }
+
+    @PutMapping("/{id}")
+    public CategoriesDTO Update(@PathVariable("id") Integer id,@RequestBody CategoriesDTO model){
+        model.setCategory_id(id);
+        return service.Update(model);
+    }
+
+    @DeleteMapping("/{id}")
+    public boolean Delete(@PathVariable("id") Integer id,@RequestBody CategoriesDTO model){
+        model.setCategory_id(id);
+        return service.Delete(model);
+    }
+
 }

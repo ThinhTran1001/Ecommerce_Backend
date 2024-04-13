@@ -20,6 +20,10 @@ public class Categories extends Base {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image",referencedColumnName = "id")
+    private ImageData image;
+
     @Column(length=50, nullable = false)
     private String categoryName;
 

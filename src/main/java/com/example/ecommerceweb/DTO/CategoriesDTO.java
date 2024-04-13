@@ -12,7 +12,10 @@ import java.util.List;
 @Setter
 public class CategoriesDTO {
 
+
     private Long categoryId;
+    private ImageDataDTO image;
+
 
     private String categoryName;
 

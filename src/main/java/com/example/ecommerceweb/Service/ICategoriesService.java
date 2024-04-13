@@ -9,5 +9,5 @@ public interface ICategoriesService {
     List<CategoriesDTO> getAllCategories();
     CategoriesDTO Add(CategoriesDTO newEntity);
     CategoriesDTO Update(CategoriesDTO newEntity);
-    CategoriesDTO Delete(CategoriesDTO categories);
+    boolean  Delete(CategoriesDTO categories);
 }
