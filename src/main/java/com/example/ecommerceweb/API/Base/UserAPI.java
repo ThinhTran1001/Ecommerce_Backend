@@ -26,13 +26,8 @@ public class UserAPI {
     @PutMapping(value = "/{id}")
     public UserDTO updateUser(@RequestBody UserDTO model, @PathVariable("id") Integer id){
         model.setUser_id(id);
-        return userService.UpdateUser(model);
     }
 
-    @GetMapping(value = "")
-    public List<UserDTO> allUser(){
-        return userService.FindAllUser();
-    }
 
     @GetMapping(value = "/{id}")
     public UserDTO getOneUser(@RequestBody UserDTO model,@PathVariable("id") Integer id){
@@ -42,10 +37,7 @@ public class UserAPI {
     @DeleteMapping(value = "/{id}")
     public UserDTO deleteUser(@RequestBody UserDTO model,@PathVariable("id") Integer id){
         model.setUser_id(id);
-        return userService.DeleteUser(model);
     }
-
-
 
 
 }

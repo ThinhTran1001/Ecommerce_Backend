@@ -2,9 +2,10 @@ package com.example.ecommerceweb.models;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -17,38 +18,33 @@ import java.util.List;
 public class Books extends Base{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer book_id;
+    @Column(name = "book_id")
+    private Long id;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @ToString.Exclude
-    @JoinTable(name = "category_book",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Collection<Categories> categories;
+    @ManyToOne
+    @JoinColumn(name="categories_id")
+    private Categories categories;
 
     @Column(length=150, nullable = false)
-    private String book_name;
+    private String bookName;
 
     @Column
     private String avatarImg;
-
-    @Column
-    private List<String> DescriptionUrlImg;
 
     @Column(nullable = false)
     private Integer price;
 
     @Column( length = 254,nullable = false)
-    private String author_name;
+    private String authorName;
 
     @Column(name="description")
     private String description;
 
     @Column(length=10)
-    private String short_name;
+    private String shortName;
 
     @Column(nullable = false)
-    private Date published_at;
+    private Date publishedAt;
 
     @Column(length= 20, nullable = false)
     private String publisher;
@@ -59,23 +55,34 @@ public class Books extends Base{
     @Column
     private boolean status;
 
+//    @Column
+//    private List<String> DescriptionUrlImg;
+
     @ManyToOne
     @JoinColumn(name = "book_created_by", referencedColumnName = "user_id", nullable = true)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Users created_by;
+    private Users createdBy;
 
     @ManyToOne
     @JoinColumn(name = "book_updated_by", referencedColumnName = "user_id", nullable = true)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Users updated_by;
+    private Users updatedBy;
 
-    @ManyToOne
-    @JoinColumn(name = "bill_id", referencedColumnName = "bill_id", nullable = true)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private Bill bill_list;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "book_order",
+            joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "order_id",
+                    referencedColumnName = "order_id"))
+    private List<Orders> orders;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "book_cart",
+            joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "cart_id",
+                    referencedColumnName = "cart_id"))
+    private List<Carts> carts;
 
     @Column
     private Integer length;
@@ -90,9 +97,6 @@ public class Books extends Base{
     private String language;
 
     @Column
-    private Integer number_of_page;
-
-    @Column
-    private Integer discount;
+    private Integer numberOfPage;
 
 }

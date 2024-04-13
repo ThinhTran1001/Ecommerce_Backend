@@ -13,68 +13,66 @@ public class BooksConverter {
 
     public Books toEntity(BooksDTO dto){
         Books book = new Books();
-        book.setBook_id(book.getBook_id());
-        book.setBook_name(dto.getBook_name());
+        book.setId(book.getId());
+        book.setBookName(dto.getBookName());
         book.setAvatarImg(dto.getAvatarImg());
-        book.setDescriptionUrlImg(dto.getDescriptionUrlImg());
         book.setPrice(dto.getPrice());
-        book.setAuthor_name(dto.getAuthor_name());
+        book.setAuthorName(dto.getAuthorName());
         book.setDescription(dto.getDescription());
-        book.setShort_name(dto.getShort_name());
-        book.setPublished_at(dto.getPublished_at());
+        book.setShortName(dto.getShortName());
+        book.setPublishedAt(dto.getPublishedAt());
         book.setPublisher(dto.getPublisher());
         book.setQuantity(dto.getQuantity());
         book.setStatus(dto.isStatus());
-        book.setCreated_by(dto.getCreated_by());
+        book.setCreatedBy(dto.getCreatedBy());
         book.setLength(dto.getLength());
         book.setThickness(dto.getThickness());
         book.setWidth(dto.getWidth());
         book.setLanguage(dto.getLanguage());
-        book.setNumber_of_page(dto.getNumber_of_page());
+        book.setNumberOfPage(dto.getNumberOfPage());
         return book;
     }
 
     public Books toEntityUpdate(BooksDTO dto, Books book){
-        book.setBook_name(dto.getBook_name());
+        book.setBookName(dto.getBookName());
         book.setAvatarImg(dto.getAvatarImg());
-        book.setDescriptionUrlImg(dto.getDescriptionUrlImg());
         book.setPrice(dto.getPrice());
-        book.setAuthor_name(dto.getAuthor_name());
+        book.setAuthorName(dto.getAuthorName());
         book.setDescription(dto.getDescription());
-        book.setShort_name(dto.getShort_name());
-        book.setPublished_at(dto.getPublished_at());
+        book.setShortName(dto.getShortName());
+        book.setPublishedAt(dto.getPublishedAt());
         book.setPublisher(dto.getPublisher());
         book.setQuantity(dto.getQuantity());
         book.setStatus(dto.isStatus());
-        book.setCreated_by(dto.getCreated_by());
+        book.setCreatedBy(dto.getCreatedBy());
         book.setLength(dto.getLength());
         book.setThickness(dto.getThickness());
         book.setWidth(dto.getWidth());
         book.setLanguage(dto.getLanguage());
-        book.setNumber_of_page(dto.getNumber_of_page());
+        book.setNumberOfPage(dto.getNumberOfPage());
         return book;
     }
 
     public BooksDTO toDTO(Books entity){
         BooksDTO dto = new BooksDTO();
-        dto.setBook_id(entity.getBook_id());
-        dto.setBook_name(entity.getBook_name());
+        dto.setBookId(entity.getId());
+        dto.setBookName(entity.getBookName());
         dto.setAvatarImg(entity.getAvatarImg());
-        dto.setDescriptionUrlImg(entity.getDescriptionUrlImg());
+//        dto.setDescriptionUrlImg(entity.getDescriptionUrlImg());
         dto.setPrice(entity.getPrice());
-        dto.setAuthor_name(entity.getAuthor_name());
+        dto.setAuthorName(entity.getAuthorName());
         dto.setDescription(entity.getDescription());
-        dto.setShort_name(entity.getShort_name());
-        dto.setPublished_at(entity.getPublished_at());
+        dto.setShortName(entity.getShortName());
+        dto.setPublishedAt(entity.getPublishedAt());
         dto.setPublisher(entity.getPublisher());
         dto.setQuantity(entity.getQuantity());
         dto.setStatus(entity.isStatus());
-        dto.setCreated_by(entity.getCreated_by());
+        dto.setCreatedBy(entity.getCreatedBy());
         dto.setLength(entity.getLength());
         dto.setThickness(entity.getThickness());
         dto.setWidth(entity.getWidth());
         dto.setLanguage(entity.getLanguage());
-        dto.setNumber_of_page(entity.getNumber_of_page());
+        dto.setNumberOfPage(entity.getNumberOfPage());
         return dto;
     }
 

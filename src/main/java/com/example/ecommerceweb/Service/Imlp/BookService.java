@@ -35,8 +35,8 @@ public class BookService implements IBookService {
     public BooksDTO update(BooksDTO newBook) {
         Books entity = new Books();
 
-        if(newBook.getBook_id() != null){
-            Books oldEntity = bookRepository.findById(newBook.getBook_id()).orElseThrow(() -> new EntityNotFoundException("Entity not found from database. "));
+        if(newBook.getBookId() != null){
+            Books oldEntity = bookRepository.findById(newBook.getBookId()).orElseThrow(() -> new EntityNotFoundException("Entity not found from database. "));
             entity = booksConverter.toEntityUpdate(newBook, oldEntity);
         }else {
             entity = booksConverter.toEntity(newBook);
@@ -48,8 +48,8 @@ public class BookService implements IBookService {
 
     @Override
     public BooksDTO findOneBook(BooksDTO newBook) {
-        Books entity = bookRepository.findById(newBook.getBook_id()).orElse(null);
-        if(newBook.getBook_id() != null && entity != null){
+        Books entity = bookRepository.findById(newBook.getBookId()).orElse(null);
+        if(newBook.getBookId() != null && entity != null){
             newBook = booksConverter.toDTO(entity);
             return newBook;
         }
@@ -58,8 +58,8 @@ public class BookService implements IBookService {
 
     @Override
     public BooksDTO delete(BooksDTO newBook) {
-        if(newBook.getBook_id() != null){
-            Books oldEntity = bookRepository.findById(newBook.getBook_id()).orElseThrow(() -> new EntityNotFoundException("Entity not found from database. "));
+        if(newBook.getBookId() != null){
+            Books oldEntity = bookRepository.findById(newBook.getBookId()).orElseThrow(() -> new EntityNotFoundException("Entity not found from database. "));
             bookRepository.delete(oldEntity);
             newBook = booksConverter.toDTO(oldEntity);
         }

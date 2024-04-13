@@ -21,7 +21,7 @@ public class Users extends Base implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="user_id")
-    private Integer user_id;
+    private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "avatar",referencedColumnName = "id")
@@ -43,22 +43,31 @@ public class Users extends Base implements UserDetails {
     @Column(name="status")
     private boolean status;
 
-    @Column(length=100, nullable = false)
-    private String address;
-
     @Column(name = "role")
     private Role role;
 
-    @OneToMany(mappedBy = "created_by", cascade = CascadeType.ALL)
-    private Collection<Books> books_created;
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL)
+    private List<Books> booksCreated;
 
-    @OneToMany(mappedBy = "updated_by", cascade = CascadeType.ALL)
-    private Collection<Books> books_updated;
+    @OneToMany(mappedBy = "updatedBy", cascade = CascadeType.ALL)
+    private List<Books> booksUpdated;
 
-    @OneToMany(mappedBy = "user_create", cascade = CascadeType.ALL)
-    private Collection<Bill> bill_list;
+    @OneToMany(mappedBy = "userCreate", cascade = CascadeType.ALL)
+    private List<Orders> orderList;
 
+    @OneToMany(mappedBy = "usersCart")
+    private List<Carts> carts;
 
+    @OneToMany(mappedBy = "usersAddress")
+    private List<Address> addresses;
+
+    // relationship that users created vouchers
+    @OneToMany(mappedBy = "usersCreateVouchers")
+    private List<Voucher> vouchersCreated;
+
+    // relationship that users has their own vouchers
+    @ManyToMany(mappedBy = "usersHasVouchers")
+    private List<Voucher> vouchersOwner;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.toString()));

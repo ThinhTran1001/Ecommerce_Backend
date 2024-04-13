@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Getter
@@ -14,24 +15,26 @@ import java.util.Collection;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "categories")
-public class Categories {
+public class Categories extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer category_id;
+    private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "image",referencedColumnName = "id")
     private ImageData image;
 
     @Column(length=50, nullable = false)
-    private String category_name;
+    private String categoryName;
 
     @Column(length=50, nullable = false)
-    private String category_Code;
+    private String categoryCode;
 
     @Column(name="status")
     private boolean status;
 
-    @ManyToMany(mappedBy = "categories")
-    private Collection<Books> books;
+    @OneToMany(mappedBy = "categories")
+    private List<Books> books;
+
+
 }

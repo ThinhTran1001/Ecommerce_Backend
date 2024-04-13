@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.lang.reflect.Type;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -61,7 +62,7 @@ public class UserService implements IUserService{
         ImageData avatar;
 
         if (newUser != null){
-            Date currentDate = new Date();
+            Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
             user = userConverter.toEntity(newUser);
             if (user.getAvatar() != null){
                 System.out.println(user.getAvatar().getId());
@@ -79,8 +80,8 @@ public class UserService implements IUserService{
             }
             user.setRole(Role.USER);
             user.setStatus(true);
-            user.setCreatedDate(currentDate);
-            user.setUpdatedDate(currentDate);
+            user.setCreatedAt(currentTimestamp);
+            user.setUpdatedAt(currentTimestamp);
             userRepository.save(user);
             newUser = userConverter.toDTO(user);
             return newUser;
@@ -90,12 +91,12 @@ public class UserService implements IUserService{
 
     @Override
     public UserDTO UpdateUser(UserDTO newUser) {
-        if (newUser.getUser_id() != null){
-            Users oldUser = userRepository.findById(newUser.getUser_id()).orElseThrow(() -> new EntityNotFoundException("Entity not found from database. "));
+        if (newUser.getUserId() != null){
+            Users oldUser = userRepository.findById(newUser.getUserId()).orElseThrow(() -> new EntityNotFoundException("Entity not found from database. "));
             Users updateUser = userConverter.toUpdateEntity(newUser, oldUser);
-            Date currentDate = new Date();
-            updateUser.setCreatedDate(currentDate);
-            updateUser.setUpdatedDate(currentDate);
+            Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+            updateUser.setCreatedAt(currentTimestamp);
+            updateUser.setUpdatedAt(currentTimestamp);
             userRepository.save(updateUser);
             newUser = userConverter.toDTO(updateUser);
         }
@@ -105,8 +106,8 @@ public class UserService implements IUserService{
     @Override
     public UserDTO DeleteUser(UserDTO newUser) {
 
-        if (newUser.getUser_id() != null){
-            Users oldUser = userRepository.findById(newUser.getUser_id()).orElseThrow(() -> new EntityNotFoundException("Entity not found from database. "));
+        if (newUser.getUserId() != null){
+            Users oldUser = userRepository.findById(newUser.getUserId()).orElseThrow(() -> new EntityNotFoundException("Entity not found from database. "));
             userRepository.delete(oldUser);
             newUser = userConverter.toDTO(oldUser);
         }else {
@@ -117,8 +118,8 @@ public class UserService implements IUserService{
 
     @Override
     public UserDTO FindOneUser(UserDTO newUser) {
-        if (newUser.getUser_id() != null){
-            Users oldUser = userRepository.findById(newUser.getUser_id()).orElseThrow(() -> new EntityNotFoundException("Entity not found from database. "));
+        if (newUser.getUserId() != null){
+            Users oldUser = userRepository.findById(newUser.getUserId()).orElseThrow(() -> new EntityNotFoundException("Entity not found from database. "));
             newUser = userConverter.toDTO(oldUser);
             return newUser;
         }else {
@@ -135,12 +136,12 @@ public class UserService implements IUserService{
 
 
     public AutheticationResponse register(Users user){
-        Date currentDate = new Date();
-        user.setRole(Role.USER);
+        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+        user.setRole(Role.CUSTOMER);
         user.setStatus(true);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setCreatedDate(currentDate);
-        user.setUpdatedDate(currentDate);
+        user.setCreatedAt(currentTimestamp);
+        user.setUpdatedAt(currentTimestamp);
         userRepository.save(user);
         String token = jwtService.generateToken(user);
         return new AutheticationResponse(token);

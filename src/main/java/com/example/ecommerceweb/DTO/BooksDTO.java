@@ -13,24 +13,24 @@ import java.util.List;
 @Getter
 @Setter
 public class BooksDTO extends AbstractDTO<BooksDTO>{
-    private Integer book_id;
+    private Long bookId;
     private Collection<Categories> categories;
-    private String book_name;
+    private String bookName;
     private String avatarImg;
     private List<String> DescriptionUrlImg;
     private Integer price;
-    private String author_name;
+    private String authorName;
     private String description;
-    private String short_name;
-    private Date published_at;
+    private String shortName;
+    private Date publishedAt;
     private String publisher;
     private Integer quantity;
     private boolean status;
-    private Users created_by;
-    private Users updated_by;
+    private Users createdBy;
+    private Users updatedBy;
     private Integer length;
     private Integer thickness;
     private Integer width;
     private String language;
-    private Integer number_of_page;
+    private Integer numberOfPage;
 }
