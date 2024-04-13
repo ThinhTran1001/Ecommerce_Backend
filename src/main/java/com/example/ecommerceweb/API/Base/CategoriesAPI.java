@@ -27,14 +27,14 @@ public class CategoriesAPI {
     }
 
     @PutMapping("/{id}")
-    public CategoriesDTO Update(@PathVariable("id") Integer id,@RequestBody CategoriesDTO model){
-        model.setCategory_id(id);
+    public CategoriesDTO Update(@PathVariable("id") Long id,@RequestBody CategoriesDTO model){
+        model.setCategoryId(id);
         return service.Update(model);
     }
 
     @DeleteMapping("/{id}")
-    public boolean Delete(@PathVariable("id") Integer id,@RequestBody CategoriesDTO model){
-        model.setCategory_id(id);
+    public boolean Delete(@PathVariable("id") Long id,@RequestBody CategoriesDTO model){
+        model.setCategoryId(id);
         return service.Delete(model);
     }
 

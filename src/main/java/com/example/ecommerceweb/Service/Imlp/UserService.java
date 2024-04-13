@@ -78,7 +78,7 @@ public class UserService implements IUserService{
                     user.setAvatar(avatar);
                 }
             }
-            user.setRole(Role.USER);
+            user.setRole(Role.CUSTOMER);
             user.setStatus(true);
             user.setCreatedAt(currentTimestamp);
             user.setUpdatedAt(currentTimestamp);

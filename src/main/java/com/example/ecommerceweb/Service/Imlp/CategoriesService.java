@@ -35,8 +35,8 @@ public class CategoriesService implements ICategoriesService {
     @Override
     public CategoriesDTO Update(CategoriesDTO newEntity) {
         Categories entity;
-        if (newEntity != null && categoriesRepository.findById(newEntity.getCategory_id()).isPresent()){
-            entity = categoriesRepository.findById(newEntity.getCategory_id()).orElseThrow(() -> new EntityNotFoundException("not found entity"));
+        if (newEntity != null && categoriesRepository.findById(newEntity.getCategoryId()).isPresent()){
+            entity = categoriesRepository.findById(newEntity.getCategoryId()).orElseThrow(() -> new EntityNotFoundException("not found entity"));
             entity = categoriesConverter.toUpdate(entity,newEntity);
             categoriesRepository.save(entity);
             return categoriesConverter.toDTO(entity);
@@ -46,8 +46,8 @@ public class CategoriesService implements ICategoriesService {
 
     @Override
     public boolean Delete(CategoriesDTO categories) {
-        if(categories != null && categoriesRepository.findById(categories.getCategory_id()).isPresent()){
-            Categories entity = categoriesRepository.findById(categories.getCategory_id()).orElseThrow(() -> new EntityNotFoundException("not found entity"));
+        if(categories != null && categoriesRepository.findById(categories.getCategoryId()).isPresent()){
+            Categories entity = categoriesRepository.findById(categories.getCategoryId()).orElseThrow(() -> new EntityNotFoundException("not found entity"));
             categoriesRepository.delete(entity);
             return true;
         }

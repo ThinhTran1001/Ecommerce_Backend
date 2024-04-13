@@ -28,8 +28,8 @@ public class CategoriesConverter {
     }
 
     public Categories toUpdate(Categories entity, CategoriesDTO dto){
-        entity.setCategory_Code(dto.getCategory_Code());
-        entity.setCategory_name(dto.getCategory_name());
+        entity.setCategoryCode(dto.getCategoryCode());
+        entity.setCategoryName(dto.getCategoryName());
         entity.setStatus(dto.isStatus());
         entity.setBooks(dto.getBooks());
         return entity;
