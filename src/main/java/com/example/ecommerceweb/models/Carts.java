@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import java.util.Collection;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -14,23 +16,20 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "categories")
-public class Categories extends Base {
+@Table(name = "carts")
+public class Carts extends Base{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cart_id")
     private Long id;
 
-    @Column(length=50, nullable = false)
-    private String categoryName;
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private Users usersCart;
 
-    @Column(length=50, nullable = false)
-    private String categoryCode;
-
-    @Column(name="status")
-    private boolean status;
-
-    @OneToMany(mappedBy = "categories")
+    @ManyToMany(mappedBy = "carts")
     private List<Books> books;
 
-
+    @Column
+    private Integer quantity;
 }

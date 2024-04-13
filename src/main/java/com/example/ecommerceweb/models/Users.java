@@ -20,10 +20,10 @@ public class Users extends Base implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="user_id")
-    private Integer user_id;
+    private Long id;
 
     @Column(name="avatar")
-    private String Avatar;
+    private String avatar;
 
     @Column(length=50, nullable = false)
     private String fullName;
@@ -40,22 +40,31 @@ public class Users extends Base implements UserDetails {
     @Column(name="status")
     private boolean status;
 
-    @Column(length=100, nullable = false)
-    private String address;
-
     @Column(name = "role")
     private Role role;
 
     @OneToMany(mappedBy = "created_by", cascade = CascadeType.ALL)
-    private Collection<Books> books_created;
+    private Collection<Books> booksCreated;
 
     @OneToMany(mappedBy = "updated_by", cascade = CascadeType.ALL)
-    private Collection<Books> books_updated;
+    private Collection<Books> booksUpdated;
 
     @OneToMany(mappedBy = "user_create", cascade = CascadeType.ALL)
-    private Collection<Bill> bill_list;
+    private Collection<Orders> orderList;
 
+    @OneToMany(mappedBy = "usersCart")
+    private List<Carts> carts;
 
+    @OneToMany(mappedBy = "userAddress")
+    private List<Address> addresses;
+
+    // relationship that users created vouchers
+    @OneToMany(mappedBy = "usersCreateVouchers")
+    private List<Voucher> vouchersCreated;
+
+    // relationship that users has their own vouchers
+    @ManyToMany(mappedBy = "usersHasVouchers")
+    private List<Voucher> vouchersOwner;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.toString()));
