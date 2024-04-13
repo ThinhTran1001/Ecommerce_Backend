@@ -20,8 +20,8 @@ public class BooksAPI {
     }
 
     @PutMapping(value = "/book/{id}")
-    public BooksDTO updateBook(@RequestBody BooksDTO model, @PathVariable("id") Integer id){
-        model.setBook_id(id);
+    public BooksDTO updateBook(@RequestBody BooksDTO model, @PathVariable("id") Long id){
+        model.setBookId(id);
         return iBookService.save(model);
     }
 

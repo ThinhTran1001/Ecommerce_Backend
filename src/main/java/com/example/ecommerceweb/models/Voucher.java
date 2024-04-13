@@ -53,10 +53,9 @@ public class Voucher extends Base{
     @ManyToMany(mappedBy = "vouchers")
     private List<Orders> order;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "user_voucher",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "voucher_id",
-                    referencedColumnName = "voucher_id"))
+            joinColumns = @JoinColumn(name = "voucher_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<Users> usersHasVouchers;
 }
