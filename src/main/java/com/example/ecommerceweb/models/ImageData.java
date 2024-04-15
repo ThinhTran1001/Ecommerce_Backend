@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "ImageData")
+@Table(name = "image_data")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,6 +20,9 @@ public class ImageData {
     private String type;
 
     @Lob
-    @Column(name = "imagedata",columnDefinition = "LONGBLOB")
+    @Column(name = "img_data",columnDefinition = "LONGBLOB")
     private byte[] imageData;
+
+    @OneToOne(mappedBy = "img")
+    private Categories categories;
 }
