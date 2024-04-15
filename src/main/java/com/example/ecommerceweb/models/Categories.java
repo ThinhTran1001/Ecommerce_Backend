@@ -33,6 +33,10 @@ public class Categories extends Base {
     @Column(name="status")
     private boolean status;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_brand", referencedColumnName = "id")
+    private ImageData img;
+
     @OneToMany(mappedBy = "categories")
     private List<Books> books;
 
