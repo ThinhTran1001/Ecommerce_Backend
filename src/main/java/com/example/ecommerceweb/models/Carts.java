@@ -31,5 +31,5 @@ public class Carts extends Base{
     private List<BookCart> cartBookList;
 
     @Column
-    private Integer quantity;
+    private Integer totalQuantity;
 }
