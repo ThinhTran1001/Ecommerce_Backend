@@ -5,31 +5,28 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "carts")
-public class Carts extends Base{
+@Table(name = "book_cart")
+public class BookCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cart_id")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
-    private Users usersCart;
+    @JoinColumn(name = "book_id")
+    private Books books;
 
-    @OneToMany(mappedBy = "carts")
-    private List<BookCart> cartBookList;
+    @ManyToOne
+    @JoinColumn(name = "cart_id")
+    private Carts carts;
 
     @Column
     private Integer quantity;
+
+
 }

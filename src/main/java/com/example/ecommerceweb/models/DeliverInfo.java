@@ -5,21 +5,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import java.sql.Timestamp;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name= "address")
-public class Address extends Base {
+@Table(name= "deliver_info")
+public class DeliverInfo extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "address_id")
     private Long id;
 
     @Column(nullable = false)
@@ -29,13 +25,16 @@ public class Address extends Base {
     private String addressDetail;
 
     @Column(nullable = false)
+    private Boolean isDefault;
+
+    @Column(nullable = false)
     private String phoneNumber;
 
-    @Column
-    private Boolean status;
+    @Column(nullable = false)
+    private Boolean isDeleted;
 
     @ManyToOne
     @JoinColumn(name="user_id")
-    private Users usersAddress;
+    private Users usersDeliverInfo;
 
 }
