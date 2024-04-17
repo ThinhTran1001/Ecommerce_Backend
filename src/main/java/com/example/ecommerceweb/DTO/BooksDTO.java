@@ -25,7 +25,7 @@ public class BooksDTO extends AbstractDTO<BooksDTO>{
     private Date publishedAt;
     private String publisher;
     private Integer quantity;
-    private boolean status;
+    private Boolean isDeleted;
     private Users createdBy;
     private Users updatedBy;
     private Integer length;
