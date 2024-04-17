@@ -52,7 +52,7 @@ public class Books extends Base{
     private Integer quantity;
 
     @Column
-    private boolean status;
+    private boolean isDeleted;
 
 //    @Column
 //    private List<String> DescriptionUrlImg;
