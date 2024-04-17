@@ -31,13 +31,16 @@ public class Orders extends Base{
     private Timestamp orderDateEnd;
 
     @Column(nullable = false)
-    private boolean quantity;
+    private Integer totalQuantity;
 
     @Column(nullable = false)
     private Long totalAmount;
 
     @Column
     private Status status;
+
+    @Column
+    private Long deliverInfoId;
 
     @Column
     private Boolean isCancelled;
@@ -52,6 +55,6 @@ public class Orders extends Base{
                     referencedColumnName = "voucher_id"))
     private List<Voucher> vouchers;
 
-    @ManyToMany(mappedBy = "orders")
-    private List<Books> books;
+    @OneToMany(mappedBy = "orders")
+    private List<BookOrder> ordersBookList;
 }

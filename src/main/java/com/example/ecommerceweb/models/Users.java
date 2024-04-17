@@ -58,8 +58,8 @@ public class Users extends Base implements UserDetails {
     @OneToMany(mappedBy = "usersCart")
     private List<Carts> carts;
 
-    @OneToMany(mappedBy = "usersAddress")
-    private List<Address> addresses;
+    @OneToMany(mappedBy = "usersDeliverInfo")
+    private List<DeliverInfo> deliverInfos;
 
     // relationship that users created vouchers
     @OneToMany(mappedBy = "usersCreateVouchers")

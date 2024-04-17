@@ -2,10 +2,6 @@ package com.example.ecommerceweb.models;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -27,6 +23,9 @@ public class Books extends Base{
 
     @Column(length=150, nullable = false)
     private String bookName;
+
+    @Column
+    private String code;
 
     @Column
     private String avatarImg;
@@ -53,7 +52,7 @@ public class Books extends Base{
     private Integer quantity;
 
     @Column
-    private boolean status;
+    private boolean isDeleted;
 
 //    @Column
 //    private List<String> DescriptionUrlImg;
@@ -70,19 +69,11 @@ public class Books extends Base{
     @ToString.Exclude
     private Users updatedBy;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "book_order",
-            joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "order_id",
-                    referencedColumnName = "order_id"))
-    private List<Orders> orders;
+    @OneToMany(mappedBy = "books")
+    private List<BookOrder> bookOrderList;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "book_cart",
-            joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "cart_id",
-                    referencedColumnName = "cart_id"))
-    private List<Carts> carts;
+    @OneToMany(mappedBy = "books")
+    private List<BookCart> bookCartList;
 
     @Column
     private Integer length;
