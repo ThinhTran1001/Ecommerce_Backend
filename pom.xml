@@ -90,10 +90,16 @@
             <version>0.12.5</version>
             <scope>runtime</scope>
         </dependency>
-
-
-
-
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.6.0.Beta1</version>
+        </dependency>
     </dependencies>
 
     <build>
