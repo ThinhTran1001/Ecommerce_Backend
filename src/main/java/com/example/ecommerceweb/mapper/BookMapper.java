@@ -5,9 +5,9 @@ import com.example.ecommerceweb.DTO.BooksDTO;
 import com.example.ecommerceweb.models.Books;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface BookMapper {
-    BooksDTO toBookDTO(Books books);
+    BooksDTO toBooksDto(Books books);
 
     Books toBook(BooksDTO booksDTO);
 
