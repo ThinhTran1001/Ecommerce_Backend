@@ -43,6 +43,7 @@ public class Users extends Base implements UserDetails {
     @Column(name="status")
     private boolean status;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
 

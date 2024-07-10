@@ -3,9 +3,11 @@ package com.example.ecommerceweb.DTO;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
-public class ImageDataDTO {
+public class ImageDataDTO implements Serializable {
     private Long id;
     private String name;
     private String type;

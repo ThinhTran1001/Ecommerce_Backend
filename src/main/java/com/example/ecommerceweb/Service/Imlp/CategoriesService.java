@@ -4,7 +4,9 @@ import com.example.ecommerceweb.DTO.CategoriesDTO;
 import com.example.ecommerceweb.Service.ICategoriesService;
 import com.example.ecommerceweb.converter.CategoriesConverter;
 import com.example.ecommerceweb.models.Categories;
+import com.example.ecommerceweb.models.ImageData;
 import com.example.ecommerceweb.repository.CategoriesRepository;
+import com.example.ecommerceweb.repository.ImageRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,9 @@ public class CategoriesService implements ICategoriesService {
     @Autowired
     private CategoriesConverter categoriesConverter;
 
+    @Autowired
+    private ImageRepository imageRepository;
+
     @Override
     public List<CategoriesDTO> getAllCategories(){
         return categoriesConverter.toListDTO(categoriesRepository.findAll());
@@ -27,7 +32,9 @@ public class CategoriesService implements ICategoriesService {
 
     @Override
     public CategoriesDTO Add(CategoriesDTO newEntity) {
+        ImageData image =imageRepository.findByName(newEntity.getImage().getName()).orElse(null);
         Categories entity = categoriesConverter.toEntity(newEntity);
+        entity.setImage(image);
         categoriesRepository.save(entity);
         return newEntity;
     }

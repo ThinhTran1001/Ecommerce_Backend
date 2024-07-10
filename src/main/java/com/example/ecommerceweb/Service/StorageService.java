@@ -17,7 +17,6 @@ public class StorageService {
     private ImageRepository repository;
 
     public String uploadImage(MultipartFile file) throws IOException {
-
         ImageData imageData = repository.save(ImageData.builder()
                 .name(file.getOriginalFilename())
                 .type(file.getContentType())

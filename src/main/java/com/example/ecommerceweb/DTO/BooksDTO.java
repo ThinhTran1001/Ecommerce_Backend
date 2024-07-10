@@ -6,13 +6,14 @@ import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
 @Getter
 @Setter
-public class BooksDTO extends AbstractDTO<BooksDTO>{
+public class BooksDTO extends AbstractDTO<BooksDTO> implements Serializable {
     private Long bookId;
     private Collection<Categories> categories;
     private String bookName;

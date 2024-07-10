@@ -3,6 +3,7 @@ package com.example.ecommerceweb.DTO;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class AbstractDTO<T> {
+public class AbstractDTO<T> implements Serializable {
 
     private Timestamp createdAt;
     private Timestamp updatedAt;
