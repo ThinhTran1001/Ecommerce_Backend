@@ -19,7 +19,9 @@ public class UserConverter {
         Users entity = new Users();
         entity.setId(dto.getUserId());
         entity.setFullName(dto.getFullName());
-        entity.setAvatar(imageDataConverter.toEntity(dto.getAvatar()));
+        if (dto.getAvatar() != null){
+            entity.setAvatar(imageDataConverter.toEntity(dto.getAvatar()));
+        }
 //        entity.setAvatar(dto.getAvatar());
         entity.setUsername(dto.getUsername());
         entity.setPassword(dto.getPassword());
@@ -35,7 +37,10 @@ public class UserConverter {
 
     public Users toUpdateEntity(UserDTO dto,Users entity){
         entity.setFullName(dto.getFullName());
-        entity.setAvatar(imageDataConverter.toEntity(dto.getAvatar()));
+        if (dto.getAvatar() != null){
+            entity.setAvatar(imageDataConverter.toEntity(dto.getAvatar()));
+        }
+
 //        entity.setAvatar(dto.getAvatar());
         entity.setPassword(dto.getPassword());
         entity.setEmail(dto.getEmail());
@@ -52,7 +57,10 @@ public class UserConverter {
         UserDTO dto = new UserDTO();
         dto.setUserId(entity.getId());
         dto.setFullName(entity.getFullName());
-        dto.setAvatar(imageDataConverter.toDTO(entity.getAvatar()));
+        if (entity.getAvatar() != null){
+            dto.setAvatar(imageDataConverter.toDTO(entity.getAvatar()));
+        }
+
 //        dto.setAvatar(entity.getAvatar());
         dto.setUsername(entity.getUsername());
         dto.setPassword(entity.getPassword());

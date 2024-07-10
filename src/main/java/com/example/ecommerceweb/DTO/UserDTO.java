@@ -6,12 +6,13 @@ import com.example.ecommerceweb.models.Role;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
 @Getter
 @Setter
-public class UserDTO extends AbstractDTO<UserDTO>{
+public class UserDTO extends AbstractDTO<UserDTO> implements Serializable {
 
     private Long userId;
     private ImageDataDTO Avatar;

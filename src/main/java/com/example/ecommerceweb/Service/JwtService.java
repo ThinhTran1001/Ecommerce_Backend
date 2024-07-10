@@ -2,6 +2,7 @@ package com.example.ecommerceweb.Service;
 
 import com.example.ecommerceweb.models.Users;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -50,13 +51,11 @@ public class JwtService {
                 .expiration(new Date(System.currentTimeMillis() + 24*60*60*1000))
                 .signWith(getSignInKey())
                 .compact();
-
         return token;
     }
 
     private SecretKey getSignInKey(){
         byte[] keyByte = Decoders.BASE64URL.decode(SECRET_KEY);
-
         return Keys.hmacShaKeyFor(keyByte);
     }
 }

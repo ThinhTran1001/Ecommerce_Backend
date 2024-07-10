@@ -17,8 +17,6 @@ public class UserAPI {
     @Autowired
     private IUserService userService;
 
-
-
     @PostMapping(value = "")
     public UserDTO addUser(@RequestBody UserDTO model){
         return userService.AddUser(model);
@@ -30,17 +28,23 @@ public class UserAPI {
         return userService.UpdateUser(model);
     }
 
-
     @GetMapping(value = "/{id}")
     public UserDTO getOneUser(@RequestBody UserDTO model,@PathVariable("id") Long id){
         model.setUserId(id);
         return userService.FindOneUser(model);
     }
+
     @DeleteMapping(value = "/{id}")
     public UserDTO deleteUser(@RequestBody UserDTO model,@PathVariable("id") Long id){
         model.setUserId(id);
         return userService.DeleteUser(model);
     }
+
+    @GetMapping("")
+    public List<UserDTO> getAll(){
+        return userService.FindAllUser();
+    }
+
 
 
 }

@@ -57,31 +57,13 @@ public class UserService implements IUserService{
 
     @Override
     public UserDTO AddUser(UserDTO newUser) {
-        ImageData avatarDefault = imageRepository.findByName("avatar-default-user.png").orElseThrow(() -> new EntityNotFoundException("Khong co anh dai dien"));
         Users user ;
-        ImageData avatar;
 
         if (newUser != null){
-            Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
             user = userConverter.toEntity(newUser);
-            if (user.getAvatar() != null){
-                System.out.println(user.getAvatar().getId());
-            }else {
-                System.out.println("khong hieu noi");
-            }
-            user.setAvatar(avatarDefault);
-
-
-            if (newUser.getAvatar() != null){
-                avatar = imageRepository.findById(newUser.getAvatar().getId()).orElse(null);
-                if (avatar != null){
-                    user.setAvatar(avatar);
-                }
-            }
+            user.setPassword(passwordEncoder.encode(newUser.getPassword()));
             user.setRole(Role.CUSTOMER);
             user.setStatus(true);
-            user.setCreatedAt(currentTimestamp);
-            user.setUpdatedAt(currentTimestamp);
             userRepository.save(user);
             newUser = userConverter.toDTO(user);
             return newUser;
@@ -94,9 +76,7 @@ public class UserService implements IUserService{
         if (newUser.getUserId() != null){
             Users oldUser = userRepository.findById(newUser.getUserId()).orElseThrow(() -> new EntityNotFoundException("Entity not found from database. "));
             Users updateUser = userConverter.toUpdateEntity(newUser, oldUser);
-            Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
-            updateUser.setCreatedAt(currentTimestamp);
-            updateUser.setUpdatedAt(currentTimestamp);
+            updateUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
             userRepository.save(updateUser);
             newUser = userConverter.toDTO(updateUser);
         }
@@ -136,12 +116,9 @@ public class UserService implements IUserService{
 
 
     public AutheticationResponse register(Users user){
-        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
         user.setRole(Role.CUSTOMER);
         user.setStatus(true);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setCreatedAt(currentTimestamp);
-        user.setUpdatedAt(currentTimestamp);
         userRepository.save(user);
         String token = jwtService.generateToken(user);
         return new AutheticationResponse(token);
