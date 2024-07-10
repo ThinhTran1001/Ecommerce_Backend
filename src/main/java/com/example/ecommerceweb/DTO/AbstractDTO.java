@@ -1,6 +1,8 @@
 package com.example.ecommerceweb.DTO;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -11,10 +13,11 @@ import java.util.Date;
 import java.util.List;
 
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Setter
-public class AbstractDTO<T> implements Serializable {
+public class AbstractDTO implements Serializable {
 
     private Timestamp createdAt;
     private Timestamp updatedAt;
-    private List<T> listResult = new ArrayList<T>();
 }

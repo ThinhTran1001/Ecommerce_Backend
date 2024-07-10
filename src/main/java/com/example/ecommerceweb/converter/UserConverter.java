@@ -40,8 +40,6 @@ public class UserConverter {
         if (dto.getAvatar() != null){
             entity.setAvatar(imageDataConverter.toEntity(dto.getAvatar()));
         }
-
-//        entity.setAvatar(dto.getAvatar());
         entity.setPassword(dto.getPassword());
         entity.setEmail(dto.getEmail());
         entity.setRole(dto.getRole());

@@ -8,10 +8,10 @@ import java.util.Optional;
 
 public interface IUserService {
 
-    public UserDTO AddUser(UserDTO newUser);
-    public UserDTO UpdateUser(UserDTO newUser);
-    public UserDTO DeleteUser(UserDTO newUser);
-    public UserDTO FindOneUser(UserDTO newUser);
+    public Long AddUser(UserDTO newUser);
+    public void UpdateUser(Long userId,UserDTO newUser);
+    public void DeleteUser(Long userId);
+    public UserDTO FindOneUser(Long userId);
     public List<UserDTO> FindAllUser();
 
 }

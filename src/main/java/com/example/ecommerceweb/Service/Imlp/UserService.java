@@ -2,41 +2,34 @@ package com.example.ecommerceweb.Service.Imlp;
 
 import com.example.ecommerceweb.DTO.AutheticationResponse;
 import com.example.ecommerceweb.DTO.UserDTO;
+import com.example.ecommerceweb.DTO.request.UserRequestLoginDTO;
 import com.example.ecommerceweb.Service.IUserService;
 import com.example.ecommerceweb.Service.JwtService;
-import com.example.ecommerceweb.Service.StorageService;
 import com.example.ecommerceweb.converter.UserConverter;
+import com.example.ecommerceweb.mapper.UserMapper;
 import com.example.ecommerceweb.models.ImageData;
 import com.example.ecommerceweb.models.Role;
 import com.example.ecommerceweb.models.Users;
 import com.example.ecommerceweb.repository.ImageRepository;
 import com.example.ecommerceweb.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.lang.reflect.Type;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class UserService implements IUserService{
 
-    @Autowired
     private final UserRepository userRepository;
 
-    @Autowired
-    private final UserConverter userConverter;
-
-    @Autowired
     private  final ImageRepository imageRepository;
 
     private final PasswordEncoder passwordEncoder;
@@ -45,92 +38,83 @@ public class UserService implements IUserService{
 
     private final AuthenticationManager authenticationManager;
 
+    private final UserMapper userMapper;
 
-    public UserService(UserRepository userRepository,  UserConverter userConverter, PasswordEncoder passwordEncoder, JwtService jwtService, AuthenticationManager authenticationManager, ImageRepository imageRepository) {
-        this.userRepository = userRepository;
-        this.userConverter = userConverter;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtService = jwtService;
-        this.authenticationManager = authenticationManager;
-        this.imageRepository = imageRepository;
+    @Override
+    public Long AddUser(UserDTO newUser) {
+        Users user = userMapper.convertToUser(newUser);
+        user.setPassword(passwordEncoder.encode(newUser.getPassword()));
+
+        userRepository.save(user);
+        log.info("Add new user");
+
+        return user.getId();
     }
 
     @Override
-    public UserDTO AddUser(UserDTO newUser) {
-        Users user ;
+    public void UpdateUser(Long userId,UserDTO dto) {
+        Users entity = getOneUser(userId);
+        if (dto != null){
+            entity.setFullName(dto.getFullName());
+            entity.setPassword(dto.getPassword());
+            entity.setEmail(dto.getEmail());
+            entity.setRole(dto.getRole());
+            entity.setStatus(dto.isStatus());
+            entity.setCreatedAt(dto.getCreatedAt());
+            entity.setUpdatedAt(dto.getUpdatedAt());
+            entity.setBooksCreated(dto.getBooksCreated());
+            entity.setBooksUpdated(dto.getBooksUpdated());
 
-        if (newUser != null){
-            user = userConverter.toEntity(newUser);
-            user.setPassword(passwordEncoder.encode(newUser.getPassword()));
-            user.setRole(Role.CUSTOMER);
-            user.setStatus(true);
-            userRepository.save(user);
-            newUser = userConverter.toDTO(user);
-            return newUser;
         }
-        return null;
+
+        log.info("User has save!");
+
     }
 
     @Override
-    public UserDTO UpdateUser(UserDTO newUser) {
-        if (newUser.getUserId() != null){
-            Users oldUser = userRepository.findById(newUser.getUserId()).orElseThrow(() -> new EntityNotFoundException("Entity not found from database. "));
-            Users updateUser = userConverter.toUpdateEntity(newUser, oldUser);
-            updateUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
-            userRepository.save(updateUser);
-            newUser = userConverter.toDTO(updateUser);
-        }
-        return newUser;
+    public void DeleteUser(Long userId) {
+        Users users = getOneUser(userId);
+        userRepository.delete(users);
+
+        log.info("Delete user by id = {}",users.getId());
     }
 
     @Override
-    public UserDTO DeleteUser(UserDTO newUser) {
-
-        if (newUser.getUserId() != null){
-            Users oldUser = userRepository.findById(newUser.getUserId()).orElseThrow(() -> new EntityNotFoundException("Entity not found from database. "));
-            userRepository.delete(oldUser);
-            newUser = userConverter.toDTO(oldUser);
-        }else {
-            System.out.println("Not found id in request.");
-        }
-        return newUser;
-    }
-
-    @Override
-    public UserDTO FindOneUser(UserDTO newUser) {
-        if (newUser.getUserId() != null){
-            Users oldUser = userRepository.findById(newUser.getUserId()).orElseThrow(() -> new EntityNotFoundException("Entity not found from database. "));
-            newUser = userConverter.toDTO(oldUser);
-            return newUser;
-        }else {
-            System.out.println("Not found id in request.");
-        }
-        return null;
+    public UserDTO FindOneUser(Long userId) {
+        Users user = getOneUser(userId);
+        return userMapper.convertToUserDTO(user);
     }
 
     @Override
     public List<UserDTO> FindAllUser() {
-        return userConverter.toListDTO(userRepository.findAll());
+        return null;
     }
 
 
 
-    public AutheticationResponse register(Users user){
-        user.setRole(Role.CUSTOMER);
-        user.setStatus(true);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public AutheticationResponse register(UserRequestLoginDTO dto){
+        Users user = userMapper.convertToUser(dto);
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
         userRepository.save(user);
         String token = jwtService.generateToken(user);
         return new AutheticationResponse(token);
     }
 
-    public  AutheticationResponse authenticate(Users request){
+    public  AutheticationResponse authenticate(UserRequestLoginDTO request){
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 request.getUsername(),
                 request.getPassword()
         ));
-        Users user = userRepository.findByUsername(request.getUsername()).orElseThrow(() -> new UsernameNotFoundException("Not Found User"));
+        Users user = getOneUser(request.getUsername());
         String token = jwtService.generateToken(user);
         return new AutheticationResponse(token);
+    }
+
+    private Users getOneUser(Long userId){
+        return  userRepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("Not Found User"));
+    }
+
+    private Users getOneUser(String username){
+        return  userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Not Found User"));
     }
 }
