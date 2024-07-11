@@ -62,9 +62,6 @@ public class UserService implements IUserService{
             entity.setStatus(dto.isStatus());
             entity.setCreatedAt(dto.getCreatedAt());
             entity.setUpdatedAt(dto.getUpdatedAt());
-            entity.setBooksCreated(dto.getBooksCreated());
-            entity.setBooksUpdated(dto.getBooksUpdated());
-
         }
 
         log.info("User has save!");

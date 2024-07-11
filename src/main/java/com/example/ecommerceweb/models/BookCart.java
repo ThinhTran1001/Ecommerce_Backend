@@ -17,16 +17,13 @@ public class BookCart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "book_id")
-    private Books books;
+    @Column(name = "book_id")
+    private Long bookId;
 
-    @ManyToOne
-    @JoinColumn(name = "cart_id")
-    private Carts carts;
+    @Column(name = "cart_id")
+    private Long cartId;
 
     @Column
     private Integer quantity;
-
 
 }

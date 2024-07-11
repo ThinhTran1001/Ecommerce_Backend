@@ -17,12 +17,10 @@ public class ImageData {
     private Long id;
 
     private String name;
+    private String code;
     private String type;
 
     @Lob
     @Column(name = "img_data",columnDefinition = "LONGBLOB")
     private byte[] imageData;
-
-    @OneToOne(mappedBy = "img")
-    private Categories categories;
 }

@@ -14,7 +14,6 @@ public class CategoriesConverter {
         entity.setId(dto.getCategoryId());
         entity.setCategoryCode(dto.getCategoryCode());
         entity.setCategoryName(dto.getCategoryName());
-        entity.setBooks(dto.getBooks());
         return entity;
     }
 
@@ -23,7 +22,6 @@ public class CategoriesConverter {
         dto.setCategoryId(entity.getId());
         dto.setCategoryCode(entity.getCategoryCode());
         dto.setCategoryName(entity.getCategoryName());
-        dto.setBooks(entity.getBooks());
         return dto;
     }
 
@@ -31,7 +29,6 @@ public class CategoriesConverter {
         entity.setCategoryCode(dto.getCategoryCode());
         entity.setCategoryName(dto.getCategoryName());
         entity.setStatus(dto.isStatus());
-        entity.setBooks(dto.getBooks());
         return entity;
     }
 

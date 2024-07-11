@@ -33,8 +33,7 @@ public class DeliverInfo extends Base {
     @Column(nullable = false)
     private Boolean isDeleted;
 
-    @ManyToOne
-    @JoinColumn(name="user_id")
-    private Users usersDeliverInfo;
+    @Column(name="user_id")
+    private Long userId;
 
 }

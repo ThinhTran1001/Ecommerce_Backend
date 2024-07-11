@@ -19,9 +19,7 @@ public class UserConverter {
         Users entity = new Users();
         entity.setId(dto.getUserId());
         entity.setFullName(dto.getFullName());
-        if (dto.getAvatar() != null){
-            entity.setAvatar(imageDataConverter.toEntity(dto.getAvatar()));
-        }
+
 //        entity.setAvatar(dto.getAvatar());
         entity.setUsername(dto.getUsername());
         entity.setPassword(dto.getPassword());
@@ -30,24 +28,18 @@ public class UserConverter {
         entity.setStatus(dto.isStatus());
         entity.setCreatedAt(dto.getCreatedAt());
         entity.setUpdatedAt(dto.getUpdatedAt());
-        entity.setBooksCreated(dto.getBooksCreated());
-        entity.setBooksUpdated(dto.getBooksUpdated());
         return entity;
     }
 
     public Users toUpdateEntity(UserDTO dto,Users entity){
         entity.setFullName(dto.getFullName());
-        if (dto.getAvatar() != null){
-            entity.setAvatar(imageDataConverter.toEntity(dto.getAvatar()));
-        }
+
         entity.setPassword(dto.getPassword());
         entity.setEmail(dto.getEmail());
         entity.setRole(dto.getRole());
         entity.setStatus(dto.isStatus());
         entity.setCreatedAt(dto.getCreatedAt());
         entity.setUpdatedAt(dto.getUpdatedAt());
-        entity.setBooksCreated(dto.getBooksCreated());
-        entity.setBooksUpdated(dto.getBooksUpdated());
         return entity;
     }
 
@@ -55,9 +47,6 @@ public class UserConverter {
         UserDTO dto = new UserDTO();
         dto.setUserId(entity.getId());
         dto.setFullName(entity.getFullName());
-        if (entity.getAvatar() != null){
-            dto.setAvatar(imageDataConverter.toDTO(entity.getAvatar()));
-        }
 
 //        dto.setAvatar(entity.getAvatar());
         dto.setUsername(entity.getUsername());
@@ -67,8 +56,6 @@ public class UserConverter {
         dto.setStatus(entity.isStatus());
         dto.setCreatedAt(entity.getCreatedAt());
         dto.setUpdatedAt(entity.getUpdatedAt());
-        dto.setBooksCreated(entity.getBooksCreated());
-        dto.setBooksUpdated(entity.getBooksUpdated());
         return dto;
     }
 

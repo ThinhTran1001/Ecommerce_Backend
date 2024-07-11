@@ -23,12 +23,8 @@ public class Carts extends Base{
     @Column(name = "cart_id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name="user_id")
-    private Users usersCart;
-
-    @OneToMany(mappedBy = "carts")
-    private List<BookCart> cartBookList;
+    @Column(name="user_id")
+    private Long userid;
 
     @Column
     private Integer totalQuantity;

@@ -17,9 +17,8 @@ public class Books extends Base{
     @Column(name = "book_id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name="categories_id")
-    private Categories categories;
+    @Column(name="category_id")
+    private Long categoryId;
 
     @Column(length=150, nullable = false)
     private String bookName;
@@ -56,24 +55,6 @@ public class Books extends Base{
 
 //    @Column
 //    private List<String> DescriptionUrlImg;
-
-    @ManyToOne
-    @JoinColumn(name = "book_created_by", referencedColumnName = "user_id", nullable = true)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private Users createdBy;
-
-    @ManyToOne
-    @JoinColumn(name = "book_updated_by", referencedColumnName = "user_id", nullable = true)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private Users updatedBy;
-
-    @OneToMany(mappedBy = "books")
-    private List<BookOrder> bookOrderList;
-
-    @OneToMany(mappedBy = "books")
-    private List<BookCart> bookCartList;
 
     @Column
     private Integer length;
