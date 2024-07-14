@@ -24,7 +24,6 @@ public class BooksConverter {
         book.setPublisher(dto.getPublisher());
         book.setQuantity(dto.getQuantity());
         book.setIsDeleted(dto.getIsDeleted());
-        book.setCreatedBy(dto.getCreatedBy());
         book.setLength(dto.getLength());
         book.setThickness(dto.getThickness());
         book.setWidth(dto.getWidth());
@@ -44,7 +43,6 @@ public class BooksConverter {
         book.setPublisher(dto.getPublisher());
         book.setQuantity(dto.getQuantity());
         book.setIsDeleted(dto.getIsDeleted());
-        book.setCreatedBy(dto.getCreatedBy());
         book.setLength(dto.getLength());
         book.setThickness(dto.getThickness());
         book.setWidth(dto.getWidth());
@@ -67,7 +65,6 @@ public class BooksConverter {
         dto.setPublisher(entity.getPublisher());
         dto.setQuantity(entity.getQuantity());
         dto.setIsDeleted(entity.getIsDeleted());
-        dto.setCreatedBy(entity.getCreatedBy());
         dto.setLength(entity.getLength());
         dto.setThickness(entity.getThickness());
         dto.setWidth(entity.getWidth());

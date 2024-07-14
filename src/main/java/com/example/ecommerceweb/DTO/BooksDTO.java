@@ -2,8 +2,9 @@ package com.example.ecommerceweb.DTO;
 
 import com.example.ecommerceweb.models.Categories;
 import com.example.ecommerceweb.models.Users;
-import jakarta.persistence.Column;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -12,8 +13,10 @@ import java.util.Date;
 import java.util.List;
 
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Setter
-public class BooksDTO extends AbstractDTO<BooksDTO> implements Serializable {
+public class BooksDTO extends AbstractDTO implements Serializable {
     private Long bookId;
     private Collection<Categories> categories;
     private String bookName;

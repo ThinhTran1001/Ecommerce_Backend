@@ -46,9 +46,8 @@ public class Voucher extends Base{
     @Column
     private Integer quantity;
 
-    @ManyToOne
-    @JoinColumn(name="user_id")
-    private Users usersCreateVouchers;
+    @Column(name="user_id")
+    private Long userId;
 
     @ManyToMany(mappedBy = "vouchers")
     private List<Orders> order;

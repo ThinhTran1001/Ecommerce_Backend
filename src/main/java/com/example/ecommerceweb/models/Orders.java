@@ -20,9 +20,8 @@ public class Orders extends Base{
     @Column(name = "order_id")
     private Long id ;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id",nullable = true)
-    private Users userCreate;
+    @Column(name = "create_at_user")
+    private Long userCreate;
 
     @Column(nullable = false)
     private Timestamp orderDateStart;
@@ -54,7 +53,4 @@ public class Orders extends Base{
             inverseJoinColumns = @JoinColumn(name = "voucher_id",
                     referencedColumnName = "voucher_id"))
     private List<Voucher> vouchers;
-
-    @OneToMany(mappedBy = "orders")
-    private List<BookOrder> ordersBookList;
 }

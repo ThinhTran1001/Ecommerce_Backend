@@ -2,6 +2,7 @@ package com.example.ecommerceweb.API.Base;
 
 import com.example.ecommerceweb.DTO.AutheticationResponse;
 import com.example.ecommerceweb.DTO.UserDTO;
+import com.example.ecommerceweb.DTO.request.UserRequestLoginDTO;
 import com.example.ecommerceweb.Service.Imlp.UserService;
 import com.example.ecommerceweb.models.Users;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +20,14 @@ public class AuthenticationController {
 
     @PostMapping("register")
     public ResponseEntity<AutheticationResponse>  register(
-            @RequestBody Users request
+            @RequestBody UserRequestLoginDTO request
             ){
         return ResponseEntity.ok(userService.register(request));
     }
 
     @PostMapping("login")
     public ResponseEntity<AutheticationResponse>  login(
-            @RequestBody Users request
+            @RequestBody UserRequestLoginDTO request
     ){
         return ResponseEntity.ok(userService.authenticate(request));
     }

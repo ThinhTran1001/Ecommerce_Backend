@@ -20,9 +20,8 @@ public class Categories extends Base {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "image",referencedColumnName = "id")
-    private ImageData image;
+    @Column(name = "img_id_avatar")
+    private Long imageIdAvatar;
 
     @Column(length=50, nullable = false)
     private String categoryName;
@@ -33,12 +32,7 @@ public class Categories extends Base {
     @Column(name="status")
     private boolean status;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "image_brand", referencedColumnName = "id")
-    private ImageData img;
-
-    @OneToMany(mappedBy = "categories")
-    private List<Books> books;
-
+    @Column(name = "img_id_brand")
+    private Long imgIdBrand;
 
 }

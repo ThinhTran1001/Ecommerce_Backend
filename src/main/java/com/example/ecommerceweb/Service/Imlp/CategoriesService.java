@@ -34,7 +34,6 @@ public class CategoriesService implements ICategoriesService {
     public CategoriesDTO Add(CategoriesDTO newEntity) {
         ImageData image =imageRepository.findByName(newEntity.getImage().getName()).orElse(null);
         Categories entity = categoriesConverter.toEntity(newEntity);
-        entity.setImage(image);
         categoriesRepository.save(entity);
         return newEntity;
     }

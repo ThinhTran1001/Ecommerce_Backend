@@ -1,6 +1,8 @@
 package com.example.ecommerceweb.DTO;
 
-public class AutheticationResponse {
+import java.io.Serializable;
+
+public class AutheticationResponse implements Serializable {
     private String token;
 
     public AutheticationResponse(String token) {

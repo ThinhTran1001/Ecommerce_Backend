@@ -18,13 +18,11 @@ public class BookOrder extends Base {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "book_id")
-    private Books books;
+    @Column(name = "book_id")
+    private Long bookId;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Orders orders;
+    @Column(name = "order_id")
+    private Long orderId;
 
     @Column
     private Long price;

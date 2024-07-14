@@ -16,7 +16,7 @@ import java.util.Date;
 @Getter
 @Setter
 @MappedSuperclass
-public class Base {
+public abstract class Base {
 
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
