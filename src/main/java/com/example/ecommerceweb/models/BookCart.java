@@ -22,7 +22,7 @@ public class BookCart {
 
     @Column(name = "cart_id")
     private Long cartId;
-
+//mchanpeo
     @Column
     private Integer quantity;
 

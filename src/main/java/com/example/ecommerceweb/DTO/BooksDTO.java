@@ -2,10 +2,7 @@ package com.example.ecommerceweb.DTO;
 
 import com.example.ecommerceweb.models.Categories;
 import com.example.ecommerceweb.models.Users;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.Collection;
